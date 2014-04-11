@@ -197,3 +197,19 @@ function hook_commerce_coupon_value_display_alter($output, $coupon, $order) {
     $output = t('Discount coupon');
   }
 }
+
+/**
+ * Allow commerce_coupon_batch module to load its bulk codes.
+ *
+ * @param string $code
+ *   The Coupon Code
+ *
+ * @param string $type
+ *   The Coupon Type (by default discount_coupon)
+ *
+ * 
+ * @return object
+ *   The commerce_coupon object if found.
+ */
+function hook_commerce_coupon_load_bulk_code($code, $type) {
+}

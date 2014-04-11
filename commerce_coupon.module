@@ -782,11 +782,17 @@ function commerce_coupon_load_by_code($code, $type = NULL) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'commerce_coupon')
       ->propertyCondition('code', $code);
-  
+
   if ($type) {
     $query->propertyCondition('type', $type);
   }
   $result = $query->execute();
+
+  if (empty($result)) {
+    if (module_exists('commerce_coupon_batch')) {
+      $result = module_invoke('commerce_coupon_batch', 'commerce_coupon_load_bulk_code', $code, $type);
+    }
+  }
 
   if (empty($result)) {
     return;
